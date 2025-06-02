@@ -58,7 +58,8 @@
     <button onclick="cekKelulusan()">Cek</button>
     <div class="result" id="result"></div>
   </div>
-
+<!-- CDN confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
     // Data siswa
     const dataSiswa = [
@@ -115,6 +116,14 @@
             </span>
           </div>
         `;
+
+        if (siswa.status === 'LULUS') {
+          confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+          });
+        }
       } else {
         resultDiv.innerHTML = "<span style='color: red'>NISN tidak ditemukan.</span>";
       }
