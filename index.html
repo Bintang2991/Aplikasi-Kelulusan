@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Kelulusan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      padding: 40px;
+      text-align: center;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      padding: 10px;
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>Cek Kelulusan Siswa</h2>
+    <input type="text" id="nama" placeholder="Masukkan Nama Anda (boleh sebagian)" />
+    <button onclick="cekKelulusan()">Cek</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // Data dummy siswa
+    const dataSiswa = [
+      { nisn: "1234567890", nama: "Budi Setiawan", status: "LULUS" },
+      { nisn: "0987654321", nama: "Ani Lestari", status: "TIDAK LULUS" },
+      { nisn: "1112223334", nama: "Rina Permata", status: "LULUS" },
+      { nisn: "4445556667", nama: "Dedi Saputra", status: "LULUS" },
+      { nisn: "7778889990", nama: "Siti Nurhaliza", status: "TIDAK LULUS" }
+    ];
+
+    function cekKelulusan() {
+      const inputNama = document.getElementById('nama').value.trim().toLowerCase();
+      const resultDiv = document.getElementById('result');
+
+      // Temukan semua siswa yang namanya mengandung input
+      const hasil = dataSiswa.filter(siswa =>
+        siswa.nama.toLowerCase().includes(inputNama)
+      );
+
+      if (hasil.length > 0) {
+        resultDiv.innerHTML = hasil.map(siswa => `
+          <div style="margin-bottom: 20px;">
+            Nama: ${siswa.nama}<br>
+            NISN: ${siswa.nisn}<br>
+            Status Kelulusan: 
+            <span style="color: ${siswa.status === 'LULUS' ? 'green' : 'red'}">
+              ${siswa.status}
+            </span>
+          </div>
+        `).join('');
+      } else {
+        resultDiv.innerHTML = "<span style='color: red'>Nama tidak ditemukan.</span>";
+      }
+    }
+  </script>
+
+</body>
+</html>
