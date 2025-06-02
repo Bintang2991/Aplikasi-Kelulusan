@@ -54,13 +54,13 @@
     <h2>Pengumuman Kelulusan</h2>
     <h3>SD Negeri Sumberdadi</h3>
     <h3>Tahun Pelajaran 2024/2025</h3>
-    <input type="text" id="nama" placeholder="Masukkan Nama Anda (boleh sebagian)" />
+    <input type="text" id="nisn" placeholder="Masukkan NISN" />
     <button onclick="cekKelulusan()">Cek</button>
     <div class="result" id="result"></div>
   </div>
 
   <script>
-    // Data dummy siswa
+    // Data siswa
     const dataSiswa = [
 { nisn: "0132395756", nama: "ABDEE ARIEF RAMADHAN HIDAYAT", status: "LULUS" },
 { nisn: "0134165786", nama: "AHNAF NATHAN FAIRUZ", status: "LULUS" },
@@ -99,16 +99,13 @@
     ];
 
     function cekKelulusan() {
-      const inputNama = document.getElementById('nama').value.trim().toLowerCase();
+      const inputNISN = document.getElementById('nisn').value.trim();
       const resultDiv = document.getElementById('result');
 
-      // Temukan semua siswa yang namanya mengandung input
-      const hasil = dataSiswa.filter(siswa =>
-        siswa.nama.toLowerCase().includes(inputNama)
-      );
+      const siswa = dataSiswa.find(s => s.nisn === inputNISN);
 
-      if (hasil.length > 0) {
-        resultDiv.innerHTML = hasil.map(siswa => `
+      if (siswa) {
+        resultDiv.innerHTML = `
           <div style="margin-bottom: 20px;">
             Nama: ${siswa.nama}<br>
             NISN: ${siswa.nisn}<br>
@@ -117,9 +114,9 @@
               ${siswa.status}
             </span>
           </div>
-        `).join('');
+        `;
       } else {
-        resultDiv.innerHTML = "<span style='color: red'>Nama tidak ditemukan.</span>";
+        resultDiv.innerHTML = "<span style='color: red'>NISN tidak ditemukan.</span>";
       }
     }
   </script>
